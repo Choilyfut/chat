@@ -1,0 +1,24 @@
+ <div id="chatter-nick-form">
+      <h3>Welcome to chat example</h3> 
+      <%= form_for :chatters, :url => chatters_path, :remote => true  do |f| %>
+
+      <%= f.text_field :nick, :id => 'input_nick', :placeholder => 'Your nick' %>
+    
+      <%= f.submit :value => 'ENJOY', :id => 'submit-nick' %>
+  
+  <% end %>
+  </div>
+ <script type="text/javascript">
+  
+  $(function(){
+    
+    $('form').bind("ajax:success",function(){
+      
+      window.location.reload();
+      
+      });
+    
+    
+    });
+  
+ </script>

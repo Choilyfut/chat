@@ -1,0 +1,77 @@
+<table border="0" width="100%">
+  <tr>
+    <td colspan="2" align="center">
+      <h2>Chat Example</h2>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <div id="chat_box">
+        <table width="100%" border="1" valign="bottom" height="100%">
+          
+        </table>
+      </div>
+    </td>
+  </tr>
+  <tr>
+  <%= form_for :messages, :url => messages_path, :remote => true  do |f| %>
+    <td width="85%">
+      <%= f.text_area :message %>
+    </td>
+    <td style="text-align:center;font-size: 15px;">
+      <%= f.submit :value => 'Send', :id => 'submit' %></br>
+      <div style="margin-top:10px;"> <%= link_to  @chatter + "(LogOut)", chat_destroyChatter_path %></div>
+    </td>
+  <% end %>
+  </tr>
+</table>
+<script type="text/javascript">
+  
+  function auto_scroll(id){
+    var el = document.getElementById(id);
+    el.scrollTop = el.scrollHeight;
+  }
+  
+  
+  $(function(){
+    
+    
+    textarea = document.getElementById('messages_message');
+    
+    setInterval(function(){
+      
+        $.get( "/messages", function( data ) {
+          
+          var chat =  $( "#chat_box" );
+          
+                chat.html( data ); auto_scroll('chat_box');
+         
+
+              });
+      
+      },5000);
+    
+    
+    $('form')
+        .bind("ajax:success",function(){          
+             $('#messages_message').val('Sended');
+             setTimeout(function(){$('#messages_message').val('');},1000);
+          })
+        .bind("ajax:error",function(){alert("not ok")});
+    
+    $('#messages_message').keydown(function(event){
+      
+
+      if(event.keyCode == 13 && event.ctrlKey) {textarea.value  +=  '\r\n';
+          }
+      else if (event.which == 13) {$('form').submit();return false;
+          }
+  
+      
+      
+    });
+    
+    
+    
+    });
+  </script>

@@ -1,0 +1,12 @@
+
+
+
+<% @messages.each do |message| %>
+<div class="message_box">
+  <div class="chatter_nick"><%= Chatter.find(message.chatter_id).nick %></div>
+  <div class="chatter_message">
+    <p><%= message.message %></p>
+  </div>
+  <div class="date_message"><%= message.created_at %></div>
+</div>
+<% end %>

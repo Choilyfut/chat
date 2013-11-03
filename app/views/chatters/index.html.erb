@@ -1,0 +1,23 @@
+<h1>Listing chatters</h1>
+
+<table>
+  <tr>
+    <th>Nick</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @chatters.each do |chatter| %>
+  <tr>
+    <td><%= chatter.nick %></td>
+    <td><%= link_to 'Show', chatter %></td>
+    <td><%= link_to 'Edit', edit_chatter_path(chatter) %></td>
+    <td><%= link_to 'Destroy', chatter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Chatter', new_chatter_path %>
